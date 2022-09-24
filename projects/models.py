@@ -7,6 +7,7 @@ class GenericCustomModel(models.Model):
 
     class Meta:
         ordering = ['created_time']
+        abstract = True
 
 
 class Project(GenericCustomModel):
@@ -55,7 +56,7 @@ class Comment(GenericCustomModel):
     description = models.TextField()
 
 
-class Contributors(GenericCustomModel):
+class Contributor(GenericCustomModel):
     PERMISSION_CHOICES = [
         ('0', 'no'),
         ('1', 'yes'),
