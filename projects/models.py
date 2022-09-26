@@ -22,6 +22,8 @@ class Project(GenericCustomModel):
     description = models.TextField()
     type = models.CharField(choices=TYPE_CHOICES, default='back', max_length=10)
 
+    owner = models.ForeignKey('auth.User', related_name='projects', on_delete=models.CASCADE)
+
 
 class Issue(GenericCustomModel):
     title = models.CharField(max_length=100, blank=False)
