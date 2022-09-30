@@ -6,13 +6,11 @@ from users.permissions import IsOwnerOrReadOnly
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
-    """
-    This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
-    """
-    queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return Project.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
