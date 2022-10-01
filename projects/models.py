@@ -22,10 +22,8 @@ class Project(GenericCustomModel):
     description = models.TextField()
     type = models.CharField(choices=TYPE_CHOICES, default='back', max_length=10)
 
-    owner = models.ForeignKey('auth.User', related_name='projects', on_delete=models.CASCADE)
-
     def __str__(self):
-        return f"{self.title}, owner: {self.owner}"
+        return f"{self.title}"
 
 
 class Issue(GenericCustomModel):
@@ -61,7 +59,7 @@ class Issue(GenericCustomModel):
     project = models.ForeignKey('projects.Project', related_name='project_issues', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.title
+        return f"{self.title}"
 
 
 class Comment(GenericCustomModel):
@@ -69,6 +67,9 @@ class Comment(GenericCustomModel):
 
     author = models.ForeignKey('auth.User', related_name='author_comments', on_delete=models.CASCADE)
     issue = models.ForeignKey('auth.User', related_name='issue_comments', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.author} comments : {self.description[:10]} ..."
 
 
 class Contributor(GenericCustomModel):
@@ -83,3 +84,6 @@ class Contributor(GenericCustomModel):
 
     user = models.ForeignKey('auth.User', related_name='user_contributors', on_delete=models.CASCADE)
     project = models.ForeignKey('projects.Project', related_name='user_contributors', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.id}: {self.user}, {self.project}"
