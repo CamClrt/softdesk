@@ -22,7 +22,10 @@ class Project(GenericCustomModel):
     description = models.TextField()
     type = models.CharField(choices=TYPE_CHOICES, default='back', max_length=10)
 
-    owner = models.ForeignKey('auth.User', related_name='projects', on_delete=models.CASCADE)
+    # owner = models.ForeignKey('auth.User', related_name='projects', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.title}, owner: {self.owner}"
 
 
 class Issue(GenericCustomModel):
@@ -53,9 +56,19 @@ class Issue(GenericCustomModel):
 
     status = models.CharField(choices=STATUS_CHOICES, default='todo', max_length=25)
 
+    # author = models.ForeignKey('auth.User', related_name='issues', on_delete=models.CASCADE)
+    # assignee = models.ForeignKey('auth.User', related_name='issues', on_delete=models.CASCADE)
+    # project = models.ForeignKey('projects.Project', related_name='issues', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
 
 class Comment(GenericCustomModel):
     description = models.TextField()
+
+    # author = models.ForeignKey('auth.User', related_name='comments', on_delete=models.CASCADE)
+    # issue = models.ForeignKey('auth.User', related_name='comments', on_delete=models.CASCADE)
 
 
 class Contributor(GenericCustomModel):
@@ -67,3 +80,6 @@ class Contributor(GenericCustomModel):
 
     permission = models.CharField(choices=PERMISSION_CHOICES, default='0', max_length=1)
     role = models.CharField(max_length=50, blank=False)
+
+    # user = models.ForeignKey('auth.User', related_name='contributors', on_delete=models.CASCADE)
+    # project = models.ForeignKey('projects.Project', related_name='contributors', on_delete=models.CASCADE)
