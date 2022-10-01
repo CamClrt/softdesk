@@ -13,4 +13,4 @@ class ProjectViewSet(viewsets.ModelViewSet):
         return Project.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(author=self.request.user)

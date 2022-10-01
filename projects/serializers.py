@@ -4,11 +4,11 @@ from projects.models import Project, Issue, Comment, Contributor
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+    author = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
         model = Project
-        fields = ['id', 'created_time', 'title', 'description', 'type', 'owner']
+        fields = ['id', 'created_time', 'title', 'description', 'type', 'author']
 
 
 class IssueSerializer(serializers.ModelSerializer):
