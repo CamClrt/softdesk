@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from projects.models import Project, Issue, Comment, Contributor
+from projects.models import Project, Issue, Comment, Contributor, Tag
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ['id', 'created_time', 'title']
 
 
 class ProjectSerializer(serializers.ModelSerializer):

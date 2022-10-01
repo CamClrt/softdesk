@@ -10,6 +10,13 @@ class GenericCustomModel(models.Model):
         abstract = True
 
 
+class Tag(GenericCustomModel):
+    title = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.title
+
+
 class Project(GenericCustomModel):
     TYPE_CHOICES = [
         ('back', 'back-end'),
@@ -21,6 +28,8 @@ class Project(GenericCustomModel):
     title = models.CharField(max_length=100, blank=False)
     description = models.TextField()
     type = models.CharField(choices=TYPE_CHOICES, default='back', max_length=10)
+
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return f"{self.title}"
