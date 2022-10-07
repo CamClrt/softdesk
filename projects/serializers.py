@@ -4,9 +4,11 @@ from projects.models import Project, Issue, Comment, Contributor, Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+
     class Meta:
         model = Tag
-        fields = ['id', 'created_time', 'title']
+        fields = ['id', 'created_time', 'title', 'author']
 
 
 class ProjectSerializer(serializers.ModelSerializer):
