@@ -10,7 +10,11 @@ class ProjectViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def get_queryset(self):
-        return Project.objects.all()
+        queryset = Project.objects.all()
+        tag_id = self.request.GET.get('tag_id')
+        if tag_id is not None:
+            queryset = Project.objects.filter(tags=tag_id)
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
